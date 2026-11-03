@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 11 - Other Kinds of Joins</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 11: Other Kinds of Joins</h1>
+            <p class="aim"><strong>Aim:</strong> Use LEFT JOIN, CROSS JOIN and NATURAL JOIN.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up team and player tables</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE team (
+    team_id INT, team_name VARCHAR(20)
+);
+
+INSERT INTO team VALUES
+(1, 'Eagles'), (2, 'Tigers'), (3, 'Lions');
+
+CREATE TABLE player (
+    player_name VARCHAR(30), team_id INT, age INT
+);
+
+INSERT INTO player VALUES
+('Asha', 1, 24), ('Meera', 1, 22), ('Arjun', 2, 27);</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 3 team rows and 3 player rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Initializes sports teams and players where team 3 (Lions) currently has no assigned players.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Use LEFT JOIN</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT t.team_name, p.player_name
+FROM team t LEFT JOIN player p
+ON t.team_id = p.team_id
+ORDER BY t.team_name, p.player_name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+-----------+-------------+
+| team_name | player_name |
++-----------+-------------+
+| Eagles    | Asha        |
+| Eagles    | Meera       |
+| Lions     | NULL        |
+| Tigers    | Arjun       |
++-----------+-------------+
+4 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> LEFT JOIN returns all rows from team; Lions has no matching player, yielding NULL in player columns.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Use CROSS JOIN and NATURAL JOIN</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT t.team_name, p.player_name
+FROM team t CROSS JOIN player p
+ORDER BY t.team_name, p.player_name;
+
+SELECT player_name, team_name
+FROM player NATURAL JOIN team
+ORDER BY player_name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- CROSS JOIN (9 rows)
++-----------+-------------+
+| team_name | player_name |
++-----------+-------------+
+| Eagles    | Arjun       |
+| Eagles    | Asha        |
+| Eagles    | Meera       |
+| Lions     | Arjun       |
+| Lions     | Asha        |
+| Lions     | Meera       |
+| Tigers    | Arjun       |
+| Tigers    | Asha        |
+| Tigers    | Meera       |
++-----------+-------------+
+9 rows in set
+
+-- NATURAL JOIN
++-------------+-----------+
+| player_name | team_name |
++-------------+-----------+
+| Arjun       | Tigers    |
+| Asha        | Eagles    |
+| Meera       | Eagles    |
++-------------+-----------+
+3 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> CROSS JOIN produces a Cartesian product (3 x 3 = 9 tuples). NATURAL JOIN matches automatically on columns with identical names (team_id).
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

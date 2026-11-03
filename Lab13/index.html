@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 13 - UNION and INTERSECT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 13: UNION and INTERSECT</h1>
+            <p class="aim"><strong>Aim:</strong> Combine two lists and find names present in both lists.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up club tables</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE club_a (student_name VARCHAR(30));
+INSERT INTO club_a VALUES ('Asha'), ('Rohan'), ('Neha');
+
+CREATE TABLE club_b (student_name VARCHAR(30));
+INSERT INTO club_b VALUES ('Neha'), ('Pooja'), ('Meera');</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 3 rows inserted into each table</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Initializes two relations with student enrollments.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Combine names once using UNION</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT student_name FROM club_a
+UNION
+SELECT student_name FROM club_b
+ORDER BY student_name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+--------------+
+| student_name |
++--------------+
+| Asha         |
+| Meera        |
+| Neha         |
+| Pooja        |
+| Rohan        |
++--------------+
+5 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> UNION merges both result sets and automatically deduplicates values ('Neha' appears only once).
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Find common names and include duplicates with UNION ALL</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT student_name FROM club_a
+INTERSECT
+SELECT student_name FROM club_b
+ORDER BY student_name;
+
+SELECT student_name FROM club_a
+UNION ALL
+SELECT student_name FROM club_b
+ORDER BY student_name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- INTERSECT
++--------------+
+| student_name |
++--------------+
+| Neha         |
++--------------+
+1 row in set
+
+-- UNION ALL
++--------------+
+| student_name |
++--------------+
+| Asha         |
+| Meera        |
+| Neha         |
+| Neha         |
+| Pooja        |
+| Rohan        |
++--------------+
+6 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> INTERSECT returns only records present in both sets. UNION ALL concatenates all rows without removing duplicates.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

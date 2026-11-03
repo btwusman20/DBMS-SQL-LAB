@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 7 - Using Aggregate Functions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 7: Using Aggregate Functions</h1>
+            <p class="aim"><strong>Aim:</strong> Use one aggregate function in each task.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up the sales table</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE sales (
+    salesperson VARCHAR(20), region VARCHAR(20), amount INT
+);
+
+INSERT INTO sales VALUES
+('Deepak', 'North', 12000), ('Pooja', 'South', 8500),
+('Deepak', 'South', 9500), ('Lata', 'North', 11000);</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 4 rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Creates transactional sales table recording salesperson names, regions, and revenue amounts.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Count sales rows</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT COUNT(*) AS num_sales FROM sales;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+-----------+
+| num_sales |
++-----------+
+|         4 |
++-----------+
+1 row in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> COUNT(*) tallies the total number of records present in the sales table.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Calculate total and highest amount</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT SUM(amount) AS total FROM sales;
+SELECT MAX(amount) AS highest FROM sales;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- SUM
++-------+
+| total |
++-------+
+| 41000 |
++-------+
+1 row in set
+
+-- MAX
++---------+
+| highest |
++---------+
+|   12000 |
++---------+
+1 row in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> SUM() computes cumulative sales (12000+8500+9500+11000=41000). MAX() identifies the maximum single sale transaction (12000).
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5 - Pattern Matching with LIKE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 5: Pattern Matching with LIKE</h1>
+            <p class="aim"><strong>Aim:</strong> Find titles that match patterns with LIKE.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up the book table</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE book (
+    title VARCHAR(40), category VARCHAR(20), copies INT
+);
+
+INSERT INTO book VALUES
+('Database Systems', 'Computer', 3),
+('Digital Electronics', 'Electronics', 2),
+('Data Structures in C', 'Computer', 2),
+('Short Stories', 'Literature', 1);</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 4 rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Creates a library catalogue table with book titles, categories, and inventory copies.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Titles starting with Data</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT title FROM book WHERE title LIKE 'Data%';</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+----------------------+
+| title                |
++----------------------+
+| Database Systems     |
+| Data Structures in C |
++----------------------+
+2 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> 'Data%' matches any string starting with 'Data' followed by any sequence of characters.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Titles ending with C and second letter h</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT title FROM book WHERE title LIKE '%C';
+SELECT title FROM book WHERE title LIKE '_h%';</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- Ends with C
++----------------------+
+| title                |
++----------------------+
+| Data Structures in C |
++----------------------+
+1 row in set
+
+-- Second letter is h
++---------------+
+| title         |
++---------------+
+| Short Stories |
++---------------+
+1 row in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> '%C' matches strings terminating with capital 'C'. '_h%' matches any single first character followed immediately by 'h'.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

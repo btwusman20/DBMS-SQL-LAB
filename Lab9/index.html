@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 9 - Aliases and CASE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 9: Aliases and CASE</h1>
+            <p class="aim"><strong>Aim:</strong> Rename columns and display a value selected by a condition.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up the exam_result table</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE exam_result (
+    name VARCHAR(20), marks INT
+);
+
+INSERT INTO exam_result VALUES
+('Asha', 92), ('Rohan', 47), ('Neha', 68), ('Meera', 33);</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 4 rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Initializes student exam scores.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Use column aliases</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT name AS student_name, marks AS score
+FROM exam_result;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+--------------+-------+
+| student_name | score |
++--------------+-------+
+| Asha         |    92 |
+| Rohan        |    47 |
+| Neha         |    68 |
+| Meera        |    33 |
++--------------+-------+
+4 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Renames columns in the result set to student_name and score without modifying the underlying schema.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Use CASE and add bonus marks</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT name,
+CASE WHEN marks &gt;= 40 THEN 'Pass' ELSE 'Fail' END AS result
+FROM exam_result;
+
+SELECT name, marks + 5 AS with_bonus FROM exam_result;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- CASE
++-------+--------+
+| name  | result |
++-------+--------+
+| Asha  | Pass   |
+| Rohan | Pass   |
+| Neha  | Pass   |
+| Meera | Fail   |
++-------+--------+
+4 rows in set
+
+-- Bonus
++-------+------------+
+| name  | with_bonus |
++-------+------------+
+| Asha  |         97 |
+| Rohan |         52 |
+| Neha  |         73 |
+| Meera |         38 |
++-------+------------+
+4 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> CASE evaluates conditional logic per row (marks >= 40 -> Pass, else Fail). marks + 5 computes an expression on the fly.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

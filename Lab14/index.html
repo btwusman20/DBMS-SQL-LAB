@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 14 - Creating and Using a View</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 14: Creating and Using a View</h1>
+            <p class="aim"><strong>Aim:</strong> Save a query as a view, then read the view.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up the score table</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE score (
+    name VARCHAR(30), subject VARCHAR(20), marks INT
+);
+
+INSERT INTO score VALUES
+('Asha', 'Maths', 78), ('Rohan', 'Maths', 64),
+('Neha', 'Maths', 88), ('Kiran', 'Maths', 52);</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 4 rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Creates a score table recording subject test marks.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Create the high_scores view</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE VIEW high_scores AS
+SELECT name, marks FROM score
+WHERE marks &gt;= 70;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, view created</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Creates a virtual view high_scores containing students scoring 70 or above.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Display all rows and names from the view</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT * FROM high_scores;
+SELECT name FROM high_scores ORDER BY name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- All view rows
++------+-------+
+| name | marks |
++------+-------+
+| Asha |    78 |
+| Neha |    88 |
++------+-------+
+2 rows in set
+
+-- Names
++------+
+| name |
++------+
+| Asha |
+| Neha |
++------+
+2 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Queries high_scores like a normal table. The database engine transparently resolves the view definition at runtime.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

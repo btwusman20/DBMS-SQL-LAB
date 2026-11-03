@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 15 - Indexes and Adding a Row</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 15: Indexes and Adding a Row</h1>
+            <p class="aim"><strong>Aim:</strong> Create an index, read rows by city and add a customer.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up the customer table</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE customer (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    city VARCHAR(20)
+);
+
+INSERT INTO customer VALUES
+(1, 'Kiran', 'Kochi'), (2, 'Deepak', 'Delhi'),
+(3, 'Lata', 'Mumbai'), (4, 'Asha', 'Delhi');</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 4 rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Defines customer table with PRIMARY KEY and NOT NULL constraints, populated with 4 initial entries.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Create an index and find Delhi customers</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE INDEX idx_city ON customer(city);
+
+SELECT name FROM customer
+WHERE city = 'Delhi'
+ORDER BY name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, index created
+
++--------+
+| name   |
++--------+
+| Asha   |
+| Deepak |
++--------+
+2 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> CREATE INDEX builds a B-tree index on the city attribute, accelerating equality filtering queries.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Insert a new customer and display the table</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">INSERT INTO customer (customer_id, name, city)
+VALUES (5, 'Arjun', 'Pune');
+
+SELECT * FROM customer ORDER BY customer_id;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+-------------+--------+--------+
+| customer_id | name   | city   |
++-------------+--------+--------+
+|           1 | Kiran  | Kochi  |
+|           2 | Deepak | Delhi  |
+|           3 | Lata   | Mumbai |
+|           4 | Asha   | Delhi  |
+|           5 | Arjun  | Pune   |
++-------------+--------+--------+
+5 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Inserts a new tuple into customer; the index on city is updated automatically by the RDBMS.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>

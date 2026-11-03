@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 10 - Joining Two Tables with INNER JOIN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">DBMS &amp; SQL LAB (BCS552)</div>
+            <h1>Lab 10: Joining Two Tables with INNER JOIN</h1>
+            <p class="aim"><strong>Aim:</strong> Join department and employee tables using dept_id.</p>
+            <div class="meta-info">
+                <span><strong>Student:</strong> Usman Khan (2410303518)</span>
+                <span><strong>Faculty:</strong> Manish Choudhary</span>
+                <span><strong>University:</strong> Invertis University Bareilly</span>
+            </div>
+        </header>
+
+        <main class="workbench">
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 1</span>
+                    <h2>Set up department and employee tables</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">CREATE TABLE department (
+    dept_id INT, dept_name VARCHAR(20)
+);
+
+INSERT INTO department VALUES
+(10, 'Accounts'), (20, 'Sales'), (40, 'Research');
+
+CREATE TABLE employee (
+    emp_name VARCHAR(30), dept_id INT, salary INT
+);
+
+INSERT INTO employee VALUES
+('Anita', 10, 90000), ('Lata', 20, 55000),
+('Deepak', 10, 60000), ('Pooja', 20, 42000);</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">Query OK, 3 department rows and 4 employee rows affected</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Creates normalized department and employee tables linked by dept_id.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot1.png" alt="Task 1 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 2</span>
+                    <h2>Join employee names with department names</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT e.emp_name, d.dept_name
+FROM employee e INNER JOIN department d
+ON e.dept_id = d.dept_id
+ORDER BY e.emp_name;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">+----------+-----------+
+| emp_name | dept_name |
++----------+-----------+
+| Anita    | Accounts  |
+| Deepak   | Accounts  |
+| Lata     | Sales     |
+| Pooja    | Sales     |
++----------+-----------+
+4 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Combines records from both relations where e.dept_id matches d.dept_id.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot2.png" alt="Task 2 Screenshot">
+                </div>
+            </section>
+
+            <section class="task-card">
+                <div class="task-header">
+                    <span class="task-number">Task 3</span>
+                    <h2>Filter Sales employees and sort by salary</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">SQL Query</div>
+                    <pre><code class="language-sql">SELECT e.emp_name
+FROM employee e INNER JOIN department d
+ON e.dept_id = d.dept_id
+WHERE d.dept_name = 'Sales'
+ORDER BY e.emp_name;
+
+SELECT e.emp_name, d.dept_name, e.salary
+FROM employee e INNER JOIN department d
+ON e.dept_id = d.dept_id
+ORDER BY e.salary DESC;</code></pre>
+                </div>
+
+                <div class="output-block">
+                    <div class="output-title">Database Output</div>
+                    <pre class="terminal-output">-- Sales employees
++----------+
+| emp_name |
++----------+
+| Lata     |
+| Pooja    |
++----------+
+2 rows in set
+
+-- Salary order
++----------+-----------+--------+
+| emp_name | dept_name | salary |
++----------+-----------+--------+
+| Anita    | Accounts  |  90000 |
+| Deepak   | Accounts  |  60000 |
+| Lata     | Sales     |  55000 |
+| Pooja    | Sales     |  42000 |
++----------+-----------+--------+
+4 rows in set</pre>
+                </div>
+
+                <div class="explanation-box">
+                    <strong>Explanation:</strong> Applies WHERE filters on joined attributes and sorts records descending by salary.
+                </div>
+
+                <div class="screenshot-preview">
+                    <div class="screenshot-title">Terminal Screenshot Preview</div>
+                    <img src="images/screenshot3.png" alt="Task 3 Screenshot">
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <p>Download pure SQL script: <a href="queries.sql" class="sql-download-btn">queries.sql</a></p>
+            <p>&copy; 2026 Invertis University Bareilly &bull; B.Tech CSE 5th Semester</p>
+        </footer>
+    </div>
+</body>
+</html>
